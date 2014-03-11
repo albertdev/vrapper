@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/net.sourceforge.vrapper.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/net.sourceforge.vrapper.core.tests"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/net.sourceforge.vrapper.plugin.methodtextobj.core"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Mockito"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/net.sourceforge.vrapper.plugin.methodtextobj.eclipse"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
