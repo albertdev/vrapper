@@ -521,7 +521,7 @@ public class EclipseCursorAndSelection implements CursorService, SelectionServic
 
         @Override
         public void widgetSelected(final SelectionEvent arg0) {
-            VrapperLog.info("Detected selection change; suppressed = " + selectionInProgress);
+            VrapperLog.debug("Detected selection change; suppressed = " + selectionInProgress);
             if ( ! selectionInProgress) {
                 selection = null;
                 // getPosition() compensates for inclusive visual selection's caret offset.
@@ -538,7 +538,7 @@ public class EclipseCursorAndSelection implements CursorService, SelectionServic
 
         @Override
         public void selectionChanged(SelectionChangedEvent event) {
-            VrapperLog.info("Detected jface selection change; suppressed = " + selectionInProgress);
+            VrapperLog.debug("Detected jface selection change; suppressed = " + selectionInProgress);
             if ( ! selectionInProgress) {
                 selection = null;
                 // getPosition() compensates for inclusive visual selection's caret offset.

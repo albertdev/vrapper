@@ -364,7 +364,7 @@ public class DefaultEditorAdaptor implements EditorAdaptor {
 
     @Override
     public void changeMode(final String modeName, final ModeSwitchHint... args) throws CommandExecutionException {
-        VrapperLog.info("Changing from " + currentMode + " to " + modeName + " (last mode = " + lastModeName + ")");
+        VrapperLog.debug("Changing from " + currentMode + " to " + modeName + " (last mode = " + lastModeName + ")");
         EditorMode newMode = modeMap.get(modeName);
         if (newMode == null) {
             // Load extension modes
