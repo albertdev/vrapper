@@ -3,12 +3,17 @@ package net.sourceforge.vrapper.eclipse.actions;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.swt.custom.ST;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+import net.sourceforge.vrapper.eclipse.commands.EclipseCommand;
 import net.sourceforge.vrapper.eclipse.interceptor.InputInterceptor;
 import net.sourceforge.vrapper.eclipse.interceptor.InputInterceptorManager;
 import net.sourceforge.vrapper.eclipse.interceptor.UnknownEditorException;
+import net.sourceforge.vrapper.eclipse.ui.EclipseCommandLineUI;
+import net.sourceforge.vrapper.keymap.SpecialKey;
+import net.sourceforge.vrapper.keymap.vim.SimpleKeyStroke;
 import net.sourceforge.vrapper.log.VrapperLog;
 import net.sourceforge.vrapper.platform.CommandLineUI;
 import net.sourceforge.vrapper.platform.VrapperPlatformException;
@@ -35,14 +40,17 @@ public class VrapperCommandLineMotionHandler extends AbstractHandler {
                 VrapperLog.error("Command line is not shown!");
                 return null;
             }
-            CommandLineUI commandLine = interceptor.getEditorAdaptor().getCommandLine();
+            EclipseCommandLineUI commandLine = 
+                    (EclipseCommandLineUI) interceptor.getEditorAdaptor().getCommandLine();
             if (commandId.endsWith(".lineStart")) {
                 commandLine.setPosition(0);
             } else if (commandId.endsWith(".lineEnd")) {
                 int lastPos = commandLine.getEndPosition();
                 commandLine.setPosition(lastPos);
             } else if (commandId.endsWith(".wordNext")) {
-                
+                commandLine.getWidget().invokeAction(ST.WORD_NEXT);
+            } else if (commandId.endsWith(".wordPrevious")) {
+                commandLine.getWidget().invokeAction(ST.WORD_PREVIOUS);
             }
         } catch (VrapperPlatformException e) {
             VrapperLog.error("Failed to find editor for part " + activeEditor, e);

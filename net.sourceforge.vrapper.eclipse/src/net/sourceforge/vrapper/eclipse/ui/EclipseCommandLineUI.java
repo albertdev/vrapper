@@ -27,7 +27,8 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.services.IDisposable;
 
-class EclipseCommandLineUI implements CommandLineUI, IDisposable, CaretListener, SelectionListener {
+public class EclipseCommandLineUI implements CommandLineUI, IDisposable, CaretListener,
+SelectionListener {
 
     private StyledText commandLineText;
     private Register clipboard;
@@ -113,6 +114,10 @@ class EclipseCommandLineUI implements CommandLineUI, IDisposable, CaretListener,
                 EclipseCommandLineUI.this.widgetSelected(new SelectionEvent(e2));
             }
         });
+    }
+
+    public StyledText getWidget() {
+        return commandLineText;
     }
 
     public boolean isOpen() {

@@ -280,6 +280,26 @@
                <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
            </enabledWhen>
        </handler>
+       <handler
+           class="net.sourceforge.vrapper.eclipse.actions.VrapperCommandLineMotionHandler"
+           commandId="org.eclipse.ui.edit.text.goto.wordNext">
+           <activeWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </activeWhen>
+           <enabledWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </enabledWhen>
+       </handler>
+       <handler
+           class="net.sourceforge.vrapper.eclipse.actions.VrapperCommandLineMotionHandler"
+           commandId="org.eclipse.ui.edit.text.goto.wordPrevious">
+           <activeWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </activeWhen>
+           <enabledWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </enabledWhen>
+       </handler>
    </extension>
 
 </plugin>
