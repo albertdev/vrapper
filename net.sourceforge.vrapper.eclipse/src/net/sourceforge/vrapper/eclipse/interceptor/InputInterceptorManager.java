@@ -20,6 +20,7 @@ import net.sourceforge.vrapper.log.VrapperLog;
 import net.sourceforge.vrapper.platform.VrapperPlatformException;
 import net.sourceforge.vrapper.vim.EditorAdaptor;
 import net.sourceforge.vrapper.vim.Options;
+import net.sourceforge.vrapper.vim.modes.EditorMode;
 import net.sourceforge.vrapper.vim.modes.NormalMode;
 
 import org.eclipse.core.commands.operations.IOperationHistory;
@@ -194,9 +195,11 @@ public class InputInterceptorManager implements IPartListener2, IPageChangedList
                         partInfo, batService);
                 CaretPositionHandler caretPositionHandler = interceptor.getCaretPositionHandler();
                 CaretPositionUndoHandler caretPositionUndoHandler = interceptor.getCaretPositionUndoHandler();
+                ContextHandler contextHandler = interceptor.getContextHandler();
                 SelectionVisualHandler visualHandler = interceptor.getSelectionVisualHandler();
                 EclipseCursorAndSelection selectionSvc = interceptor.getPlatform().getSelectionService();
 
+                contextHandler.hookContextService(partInfo);
                 textViewerExt.prependVerifyKeyListener(interceptor);
                 srcViewer.getTextWidget().addMouseListener(caretPositionHandler);
                 srcViewer.getTextWidget().addCaretListener(caretPositionHandler);
@@ -227,9 +230,11 @@ public class InputInterceptorManager implements IPartListener2, IPageChangedList
                 ITextViewerExtension textViewerExt = (ITextViewerExtension) viewer;
                 CaretPositionHandler caretPositionHandler = interceptor.getCaretPositionHandler();
                 CaretPositionUndoHandler caretPositionUndoHandler = interceptor.getCaretPositionUndoHandler();
+                ContextHandler contextHandler = interceptor.getContextHandler();
                 SelectionVisualHandler visualHandler = interceptor.getSelectionVisualHandler();
                 EclipseCursorAndSelection selectionSvc = interceptor.getPlatform().getSelectionService();
 
+                contextHandler.unhookContextService(nestingInfo);
                 textViewerExt.removeVerifyKeyListener(interceptor);
                 textViewer.getTextWidget().removeCaretListener(caretPositionHandler);
                 textViewer.getTextWidget().removeMouseListener(caretPositionHandler);

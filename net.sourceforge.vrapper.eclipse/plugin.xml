@@ -20,6 +20,13 @@
           name="Toggle Vrapper">
 
     </command>
+    <command
+          categoryId="net.sourceforge.vrapper.eclipse.commands"
+          defaultHandler="net.sourceforge.vrapper.eclipse.actions.VrapperShortcutHandler"
+          description="Sends the bound key directly to Vrapper"
+          id="net.sourceforge.vrapper.eclipse.command1"
+          name="Vrapper Input">
+    </command>
     </extension>
 
 
@@ -135,7 +142,145 @@
             markerType="net.sourceforge.vrapper.eclipse.searchhighlight"
             name="net.sourceforge.vrapper.eclipse.incsearchhighlight">
       </type>
-
    </extension>
+
+   <extension
+         point="org.eclipse.ui.contexts">
+      <!-- XXX These only exist to boost Vrapper's importance but are never activated. -->
+      <context
+            description="Dummy context for Vrapper"
+            id="net.sourceforge.vrapper.eclipse.dummy1"
+            name="ZZ Vrapper's Dummy Contexts"
+            parentId="org.eclipse.ui.textEditorScope">
+      </context>
+      <context
+            description="Dummy context for Vrapper"
+            id="net.sourceforge.vrapper.eclipse.dummy2"
+            name="ZZ Vrapper's Dummy Contexts"
+            parentId="net.sourceforge.vrapper.eclipse.dummy1">
+      </context>
+      <context
+            description="Dummy context for Vrapper"
+            id="net.sourceforge.vrapper.eclipse.dummy3"
+            name="ZZ Vrapper's Dummy Contexts"
+            parentId="net.sourceforge.vrapper.eclipse.dummy2">
+      </context>
+      <context
+            description="Dummy context for Vrapper"
+            id="net.sourceforge.vrapper.eclipse.dummy4"
+            name="ZZ Vrapper's Dummy Contexts"
+            parentId="net.sourceforge.vrapper.eclipse.dummy3">
+      </context>
+      <context
+            description="Dummy context for Vrapper"
+            id="net.sourceforge.vrapper.eclipse.dummy5"
+            name="ZZ Vrapper's Dummy Contexts"
+            parentId="net.sourceforge.vrapper.eclipse.dummy4">
+      </context>
+      <!-- Vrapper contexts proper -->
+      <context
+            description="Shortcuts are used whenever Vrapper is active, whatever the mode"
+            id="net.sourceforge.vrapper.eclipse.active"
+            name="Vrapper Activate"
+            parentId="net.sourceforge.vrapper.eclipse.dummy5">
+      </context>
+      <context
+            description="Shortcuts are used when Vrapper is in Normal mode"
+            id="net.sourceforge.vrapper.eclipse.active.normal"
+            name="Vrapper Normal mode Active"
+            parentId="net.sourceforge.vrapper.eclipse.active">
+      </context>
+      <context
+            description="Shortcuts are used when Vrapper is in Commandline or Search mode"
+            id="net.sourceforge.vrapper.eclipse.active.command"
+            name="Vrapper Commandline Opened"
+            parentId="net.sourceforge.vrapper.eclipse.active">
+      </context>
+      <context
+            description="Shortcuts are used when Vrapper is in visual or select mode"
+            id="net.sourceforge.vrapper.eclipse.active.visual"
+            name="Vrapper Visual mode Active"
+            parentId="net.sourceforge.vrapper.eclipse.active">
+      </context>
+      <context
+            description="Shortcuts are used when Vrapper is in insert mode"
+            id="net.sourceforge.vrapper.eclipse.active.insert"
+            name="Vrapper Insert mode Active"
+            parentId="net.sourceforge.vrapper.eclipse.active">
+      </context>
+   </extension>
+
+   <!-- Define handler activation rules up front. -->
+   <extension point="org.eclipse.core.expressions.definitions">
+       <definition id="net.sourceforge.vrapper.expr.context.active">
+            <and>
+               <!-- Check that we're even on an editor -->
+               <with variable="activePart">
+                   <instanceof value="org.eclipse.ui.IEditorPart" />
+               </with>
+               <!-- Activate when Vrapper context is enabled. -->
+               <with variable="activeContexts">
+                   <iterate ifEmpty="false" operator="or">
+                       <equals value="net.sourceforge.vrapper.eclipse.active"/>
+                   </iterate>
+               </with>
+               <!-- XXX Only here to increase Vrapper's handling score. -->
+               <with variable="selection">
+                   <iterate ifEmpty="true" operator="or">
+                       <instanceof value="java.lang.Object" />
+                   </iterate>
+               </with>
+            </and>
+       </definition>
+       <definition id="net.sourceforge.vrapper.expr.context.commandline">
+            <and>
+               <!-- Check that we're even on an editor -->
+               <with variable="activePart">
+                   <instanceof value="org.eclipse.ui.IEditorPart" />
+               </with>
+               <!-- Activate when Vrapper context is enabled. -->
+               <with variable="activeContexts">
+                   <iterate ifEmpty="false" operator="or">
+                       <equals value="net.sourceforge.vrapper.eclipse.active.command"/>
+                   </iterate>
+               </with>
+               <!-- XXX Only here to increase Vrapper's handling score. -->
+               <with variable="selection">
+                   <iterate ifEmpty="true" operator="or">
+                       <instanceof value="java.lang.Object" />
+                   </iterate>
+               </with>
+            </and>
+       </definition>
+       <definition id="net.sourceforge.vrapper.expr.context.selectiontrue">
+           <count value="*"/>
+       </definition>
+   </extension>
+
+   <!-- Allow smarter positioning in the command line. -->
+   <extension
+       point="org.eclipse.ui.handlers">
+       <handler
+           class="net.sourceforge.vrapper.eclipse.actions.VrapperCommandLineMotionHandler"
+           commandId="org.eclipse.ui.edit.text.goto.lineStart">
+           <activeWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </activeWhen>
+           <enabledWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </enabledWhen>
+       </handler>
+       <handler
+           class="net.sourceforge.vrapper.eclipse.actions.VrapperCommandLineMotionHandler"
+           commandId="org.eclipse.ui.edit.text.goto.lineEnd">
+           <activeWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </activeWhen>
+           <enabledWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </enabledWhen>
+       </handler>
+   </extension>
+
 </plugin>
 

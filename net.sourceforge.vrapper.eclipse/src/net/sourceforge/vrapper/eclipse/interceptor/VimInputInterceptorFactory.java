@@ -212,6 +212,10 @@ public class VimInputInterceptorFactory implements InputInterceptorFactory {
         interceptor.setPlatform(platform);
         interceptor.setEditorInfo(partInfo);
 
+        ContextHandler contextHandler = new ContextHandler();
+        interceptor.setContextHandler(contextHandler);
+        editorAdaptor.addVrapperEventListener(contextHandler);
+
         interceptor.setCaretPositionUndoHandler(new CaretPositionUndoHandler(editorAdaptor, textViewer));
         editorAdaptor.addVrapperEventListener(interceptor.getCaretPositionUndoHandler());
 
@@ -250,6 +254,7 @@ public class VimInputInterceptorFactory implements InputInterceptorFactory {
         private CaretPositionHandler caretPositionHandler;
         private SelectionVisualHandler selectionVisualHandler;
         private CaretPositionUndoHandler caretPositionUndoHandler;
+        private ContextHandler contextHandler;
         private EclipsePlatform eclipsePlatform;
 
         private VimInputInterceptor(EditorAdaptor editorAdaptor) {
@@ -329,6 +334,14 @@ public class VimInputInterceptorFactory implements InputInterceptorFactory {
         @Override
         public void setCaretPositionUndoHandler(CaretPositionUndoHandler handler) {
             this.caretPositionUndoHandler = handler;
+        }
+
+        public ContextHandler getContextHandler() {
+            return contextHandler;
+        }
+
+        public void setContextHandler(ContextHandler contextHandler) {
+            this.contextHandler = contextHandler;
         }
 
         @Override

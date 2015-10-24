@@ -27,6 +27,9 @@ public interface InputInterceptor extends VerifyKeyListener {
     
     public CaretPositionUndoHandler getCaretPositionUndoHandler();
     public void setCaretPositionUndoHandler(CaretPositionUndoHandler handler);
+    
+    public ContextHandler getContextHandler();
+    public void setContextHandler(ContextHandler handler);
 
     public EclipsePlatform getPlatform();
     public void setPlatform(EclipsePlatform platform);
