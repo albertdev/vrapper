@@ -51,6 +51,12 @@ public class VrapperCommandLineMotionHandler extends AbstractHandler {
                 commandLine.getWidget().invokeAction(ST.WORD_NEXT);
             } else if (commandId.endsWith(".wordPrevious")) {
                 commandLine.getWidget().invokeAction(ST.WORD_PREVIOUS);
+            } else if (commandId.endsWith(".paste")) {
+                commandLine.getWidget().invokeAction(ST.PASTE);
+            } else if (commandId.endsWith(".cut")) {
+                commandLine.getWidget().invokeAction(ST.CUT);
+            } else if (commandId.endsWith(".copy")) {
+                commandLine.getWidget().invokeAction(ST.COPY);
             }
         } catch (VrapperPlatformException e) {
             VrapperLog.error("Failed to find editor for part " + activeEditor, e);

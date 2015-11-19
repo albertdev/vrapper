@@ -300,6 +300,36 @@
                <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
            </enabledWhen>
        </handler>
+       <handler
+           class="net.sourceforge.vrapper.eclipse.actions.VrapperCommandLineMotionHandler"
+           commandId="org.eclipse.ui.edit.cut">
+           <activeWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </activeWhen>
+           <enabledWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </enabledWhen>
+       </handler>
+       <handler
+           class="net.sourceforge.vrapper.eclipse.actions.VrapperCommandLineMotionHandler"
+           commandId="org.eclipse.ui.edit.copy">
+           <activeWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </activeWhen>
+           <enabledWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </enabledWhen>
+       </handler>
+       <handler
+           class="net.sourceforge.vrapper.eclipse.actions.VrapperCommandLineMotionHandler"
+           commandId="org.eclipse.ui.edit.paste">
+           <activeWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </activeWhen>
+           <enabledWhen>
+               <reference definitionId="net.sourceforge.vrapper.expr.context.commandline"/>
+           </enabledWhen>
+       </handler>
    </extension>
 
 </plugin>
