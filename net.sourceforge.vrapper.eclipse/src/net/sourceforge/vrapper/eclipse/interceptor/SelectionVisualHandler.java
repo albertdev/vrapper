@@ -79,7 +79,7 @@ public class SelectionVisualHandler implements ISelectionChangedListener {
                 commandMode.placeCursor(StickyColumnPolicy.RESET_EOL);
             }
         } else if ( ! (VrapperPlugin.isMouseDown() && config.get(Options.VISUAL_MOUSE))
-                && ! config.get(Options.VISUAL_OTHER)) {
+                && ! ( ! VrapperPlugin.isMouseDown() && config.get(Options.VISUAL_OTHER))) {
             // Mark selection as "conflicted" - we're in Normal mode but somehow a selection exists
             if (NormalMode.NAME.equals(editorAdaptor.getCurrentModeName())) {
                 editorAdaptor.getCursorService().setCaret(CaretType.UNDERLINE);
