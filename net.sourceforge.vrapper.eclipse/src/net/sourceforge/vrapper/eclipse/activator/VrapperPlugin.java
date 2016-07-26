@@ -1,8 +1,12 @@
 package net.sourceforge.vrapper.eclipse.activator;
 
+import net.sourceforge.vrapper.eclipse.commands.EclipseMotionPlugState;
+import net.sourceforge.vrapper.eclipse.commands.EclipsePlugState;
+import net.sourceforge.vrapper.eclipse.commands.EclipseTextObjectPlugState;
 import net.sourceforge.vrapper.eclipse.interceptor.InputInterceptor;
 import net.sourceforge.vrapper.eclipse.interceptor.InputInterceptorManager;
 import net.sourceforge.vrapper.eclipse.interceptor.UnknownEditorException;
+import net.sourceforge.vrapper.keymap.vim.PlugKeyStroke;
 import net.sourceforge.vrapper.log.Log;
 import net.sourceforge.vrapper.log.VrapperLog;
 import net.sourceforge.vrapper.platform.VrapperPlatformException;
@@ -23,6 +27,7 @@ import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.adaptor.EclipseStarter;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IPreferencesService;
 import org.eclipse.core.runtime.preferences.InstanceScope;
@@ -325,6 +330,9 @@ public class VrapperPlugin extends AbstractUIPlugin implements IStartup, Log {
                 if (nativeSelection.getModelLength() > 0
                         && nativeSelection != SelectionService.VRAPPER_SELECTION_ACTIVE
                         && ! (adaptor.getCurrentMode() instanceof AbstractCommandLineMode)) {
+                    // Record action plug in current macro
+                    // [TODO] Don't do this when EclipseCommand is invoked from Vrapper
+                    adaptor.getMacroRecorder().handleKey(new PlugKeyStroke(EclipseTextObjectPlugState.TEXTOBJPREFIX + commandId + ')'));
                     if (lastSelection == null) {
                         lastSelection = new SimpleSelection(nativeSelection);
                     }
@@ -345,6 +353,9 @@ public class VrapperPlugin extends AbstractUIPlugin implements IStartup, Log {
                         // [TODO] Check for inclusive / exclusive!
                         adaptor.setSelection(lastSelection);
                     } else {
+                        // Record action plug in current macro
+                        // [TODO] Don't do this when EclipseCommand is invoked from Vrapper
+                        adaptor.getMacroRecorder().handleKey(new PlugKeyStroke(EclipseMotionPlugState.MOTIONPREFIX + commandId + ')'));
                         // [TODO] Check for inclusive / exclusive!
                         lastSelection = lastSelection.reset(adaptor, lastSelection.getFrom(), adaptor.getPosition());
                         adaptor.setSelection(lastSelection);
