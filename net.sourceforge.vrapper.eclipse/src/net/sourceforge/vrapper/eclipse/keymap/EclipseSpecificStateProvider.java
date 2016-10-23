@@ -22,6 +22,7 @@ import net.sourceforge.vrapper.eclipse.commands.ListTabsCommand;
 import net.sourceforge.vrapper.eclipse.commands.TabNewCommand;
 import net.sourceforge.vrapper.eclipse.commands.ToggleFoldingCommand;
 import net.sourceforge.vrapper.eclipse.modes.InsertExpandMode;
+import net.sourceforge.vrapper.eclipse.commands.TooltipNextACommand;
 import net.sourceforge.vrapper.keymap.EmptyState;
 import net.sourceforge.vrapper.keymap.KeyMapInfo;
 import net.sourceforge.vrapper.keymap.KeyStroke.Modifier;
@@ -107,6 +108,7 @@ public class EclipseSpecificStateProvider extends AbstractEclipseSpecificStatePr
             EclipsePlugState.INSTANCE,
             new VisualTextObjectState(EclipseTextObjectPlugState.INSTANCE),
             state(
+                transitionBind('\\', transitionBind('a', leafBind(SpecialKey.RETURN, dontRepeat((Command)new TooltipNextACommand())))),
                 transitionBind('z',
                         leafBind('a', ToggleFoldingCommand.DEFAULTINSTANCE),
                         leafBind('o', dontRepeat(editText("folding.expand"))),

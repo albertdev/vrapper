@@ -9,6 +9,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.text,
  org.eclipse.ui.editors,
  org.eclipse.ui.ide,
+ org.eclipse.draw2d,
  org.eclipse.core.resources,
  net.sourceforge.vrapper.core;bundle-version="0.71.20161019";visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

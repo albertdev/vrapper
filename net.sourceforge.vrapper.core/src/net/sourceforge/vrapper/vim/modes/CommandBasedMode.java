@@ -201,9 +201,9 @@ public abstract class CommandBasedMode extends AbstractMode {
                     transitionBind('F', convertKeyStroke(FindCharMotion
                             .keyConverter(true, true),
                             VimConstants.PRINTABLE_KEYSTROKES)),
-                    transitionBind('\'', convertKeyStroke(
-                            GoToMarkMotion.LINEWISE_CONVERTER,
-                            VimConstants.PRINTABLE_KEYSTROKES)),
+//                    transitionBind('\'', convertKeyStroke(
+//                            GoToMarkMotion.LINEWISE_CONVERTER,
+//                            VimConstants.PRINTABLE_KEYSTROKES)),
                     transitionBind('`', convertKeyStroke(
                             GoToMarkMotion.CHARWISE_CONVERTER,
                             VimConstants.PRINTABLE_KEYSTROKES)),
