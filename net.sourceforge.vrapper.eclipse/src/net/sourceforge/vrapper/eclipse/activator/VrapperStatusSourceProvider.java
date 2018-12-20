@@ -3,7 +3,9 @@ package net.sourceforge.vrapper.eclipse.activator;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sourceforge.vrapper.log.VrapperLog;
+import org.eclipse.ui.AbstractSourceProvider;
+import org.eclipse.ui.ISources;
+
 import net.sourceforge.vrapper.vim.modes.EditorMode;
 import net.sourceforge.vrapper.vim.modes.InsertMode;
 import net.sourceforge.vrapper.vim.modes.NormalMode;
@@ -11,12 +13,7 @@ import net.sourceforge.vrapper.vim.modes.VisualMode;
 import net.sourceforge.vrapper.vim.modes.commandline.AbstractCommandLineMode;
 import net.sourceforge.vrapper.vim.modes.commandline.CommandLineMode;
 
-import org.eclipse.ui.AbstractSourceProvider;
-import org.eclipse.ui.ISourceProviderListener;
-import org.eclipse.ui.ISources;
-import org.eclipse.ui.services.IServiceLocator;
-
-public class VrapperStatusSourceProvider extends AbstractSourceProvider implements ISourceProviderListener {
+public class VrapperStatusSourceProvider extends AbstractSourceProvider {
     /** Source Id for a boolean flag indicating whether Vrapper is enabled. */
     public static final String SOURCE_ENABLED = "net.sourceforge.vrapper.source.enabled";
     /** Current mode of the last-activated editor. */
