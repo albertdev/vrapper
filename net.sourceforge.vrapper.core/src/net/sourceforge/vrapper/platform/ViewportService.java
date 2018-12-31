@@ -34,14 +34,14 @@ public interface ViewportService {
 	void exposeModelPosition(Position position);
 
 	/**
-	 * @return information about the currently visible text range
+	 * @return information about the currently visible text range (view lines)
 	 */
 	ViewPortInformation getViewPortInformation();
 
 	/**
 	 * Sets the first visible line.
 	 *
-	 * @param line the new line to set
+	 * @param line the new line to set (view line)
 	 */
 	void setTopLine(int line);
 

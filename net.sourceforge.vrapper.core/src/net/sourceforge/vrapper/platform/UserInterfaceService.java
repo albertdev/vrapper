@@ -25,17 +25,22 @@ public interface UserInterfaceService {
     void setAsciiValues(String asciiValue, int decValue, String hexValue, String octalValue);
     
     /**
-     * 
+     * Informative output set by a recently executed command. Only used when {@link #setInfoSet(boolean)}
+     * got called with parameter <code>true</code>.
      */
     String getLastCommandResultValue();
     
     /**
-     * 
+     * Set the info returned by a command. Only used when {@link #setInfoSet(boolean)} got called
+     * with parameter <code>true</code>.
      */
     void setLastCommandResultValue(String lastCommandResultValue);
     
     /**
      * Message of any kind.
+     *
+     * <p>Note that the Normal mode resets this info message all the time. Commands should use
+     * {@link #setLastCommandResultValue(String)} and {@link #setInfoSet(boolean)}.
      */
     void setInfoMessage(String content);
     

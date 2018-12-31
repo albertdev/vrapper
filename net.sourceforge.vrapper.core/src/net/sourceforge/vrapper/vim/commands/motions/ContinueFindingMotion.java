@@ -7,7 +7,9 @@ import net.sourceforge.vrapper.vim.commands.CommandExecutionException;
 
 /**
  * Motion responsible for repeating <code>t</code>, <code>T</code>, <code>f</code> and
- * <code>F</code> motions. Finds next occurrence of a character in current line.
+ * <code>F</code> motions; or {@link NavigatingMotion} from plugins.
+ *
+ * @see SearchResultMotion SearchResultMotion for the motion repeating search mode keywords.
  */
 public class ContinueFindingMotion extends CountAwareMotion {
 
