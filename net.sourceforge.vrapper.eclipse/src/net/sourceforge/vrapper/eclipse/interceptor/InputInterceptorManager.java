@@ -38,6 +38,7 @@ import net.sourceforge.vrapper.eclipse.activator.VrapperPlugin;
 import net.sourceforge.vrapper.eclipse.extractor.EditorExtractor;
 import net.sourceforge.vrapper.eclipse.platform.EclipseBufferAndTabService;
 import net.sourceforge.vrapper.eclipse.platform.EclipseCursorAndSelection;
+import net.sourceforge.vrapper.eclipse.platform.EclipseHighlightingService;
 import net.sourceforge.vrapper.eclipse.utils.Utils;
 import net.sourceforge.vrapper.log.VrapperLog;
 import net.sourceforge.vrapper.platform.PlatformVrapperLifecycleListener;
@@ -274,6 +275,7 @@ public class InputInterceptorManager implements IPartListener2, IPageChangedList
                 CaretPositionUndoHandler caretPositionUndoHandler = interceptor.getCaretPositionUndoHandler();
                 SelectionVisualHandler visualHandler = interceptor.getSelectionVisualHandler();
                 EclipseCursorAndSelection selectionSvc = interceptor.getPlatform().getSelectionService();
+                EclipseHighlightingService highlightSvc = interceptor.getPlatform().getHighlightingService();
 
                 textViewerExt.removeVerifyKeyListener(interceptor);
                 textViewer.getTextWidget().removeCaretListener(caretPositionHandler);
@@ -282,6 +284,7 @@ public class InputInterceptorManager implements IPartListener2, IPageChangedList
                 IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
                 operationHistory.removeOperationHistoryListener(caretPositionUndoHandler);
                 selectionSvc.uninstallHooks();
+                highlightSvc.uninstallHooks();
             } catch (Exception exception) {
                 VrapperLog.error("Exception during closing IWorkbenchPart",
                         exception);
