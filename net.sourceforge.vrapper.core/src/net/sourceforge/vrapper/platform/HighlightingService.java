@@ -1,7 +1,10 @@
 package net.sourceforge.vrapper.platform;
 
 import java.util.List;
+import java.util.Map;
 
+import net.sourceforge.vrapper.utils.LabeledPosition;
+import net.sourceforge.vrapper.utils.Position;
 import net.sourceforge.vrapper.utils.TextRange;
 
 /**
@@ -61,4 +64,24 @@ public interface HighlightingService {
      * @param annotationHandle handle returned by @ref highlightRegion.
      */
     void removeHighlights(List<Object> annotationHandles);
+
+    /**
+     * Paints labels on top of a given {@link Position}. Positions which are inside a view are
+     * ignored.
+     *
+     * <p>Note that these labels should be short-lived: when edits happen, a piece of text may move
+     * to a slightly different offset. The label painting code will however keep painting it in the
+     * original spot.
+     * @param positions {@link Map} containing unique (in terms of model offset) positions and their
+     * associated label.
+     * @return a {@link List} of {@link LabeledPosition} instances which serve as a handle to remove
+     * the labels later on.
+     */
+    List<LabeledPosition> labelPositions(Map<Position, String> positionLabels);
+
+    /**
+     * Removes labeled positions from view.
+     * @param positionLabels one or more of the handle objects returned by {@link #labelPositions(Map)}
+     */
+    void removeLabels(List<LabeledPosition> positionLabels);
 }

@@ -6,11 +6,13 @@ public abstract class AbstractPosition implements Position {
         int diff = getModelOffset()-o.getModelOffset();
         return (int) Math.signum(diff);
     }
-    
+
     @Override
     public int hashCode() {
-        // FIXME: FindBugs
-        throw new UnsupportedOperationException("method not yet implemented");
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + getModelOffset();
+        return result;
     }
 
     @Override

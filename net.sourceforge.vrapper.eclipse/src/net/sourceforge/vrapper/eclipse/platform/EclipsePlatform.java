@@ -18,7 +18,6 @@ import net.sourceforge.vrapper.platform.BufferAndTabService;
 import net.sourceforge.vrapper.platform.CursorService;
 import net.sourceforge.vrapper.platform.FileService;
 import net.sourceforge.vrapper.platform.GlobalConfiguration;
-import net.sourceforge.vrapper.platform.HighlightingService;
 import net.sourceforge.vrapper.platform.HistoryService;
 import net.sourceforge.vrapper.platform.Platform;
 import net.sourceforge.vrapper.platform.PlatformSpecificModeProvider;
@@ -58,7 +57,7 @@ public class EclipsePlatform implements Platform {
     private final UnderlyingEditorSettings underlyingEditorSettings;
     private final LocalConfiguration localConfiguration;
     private final AbstractTextEditor underlyingEditor;
-    private final HighlightingService highlightingService;
+    private final EclipseHighlightingService highlightingService;
     private final SearchAndReplaceService searchAndReplaceService;
     private final VrapperModeRecorder vrapperModeRecorder;
     private static final Map<String, PlatformSpecificStateProvider> providerCache = new ConcurrentHashMap<String, PlatformSpecificStateProvider>();
@@ -84,7 +83,7 @@ public class EclipsePlatform implements Platform {
         userInterfaceService = new EclipseUserInterfaceService(
                 abstractTextEditor, sourceViewer);
         keyMapProvider = new DefaultKeyMapProvider();
-        highlightingService = new EclipseHighlightingService(abstractTextEditor, cursorAndSelection);
+        highlightingService = new EclipseHighlightingService(abstractTextEditor, sourceViewer, cursorAndSelection);
         searchAndReplaceService = new EclipseSearchAndReplaceService(sourceViewer, localConfiguration, highlightingService);
         if (sourceViewer instanceof ITextViewerExtension6) {
             final IUndoManager delegate = ((ITextViewerExtension6) sourceViewer)
@@ -286,7 +285,7 @@ public class EclipsePlatform implements Platform {
     }
 
     @Override
-    public HighlightingService getHighlightingService() {
+    public EclipseHighlightingService getHighlightingService() {
         return highlightingService;
     }
 
