@@ -4,7 +4,6 @@ import net.sourceforge.vrapper.utils.Position;
 import net.sourceforge.vrapper.vim.EditorAdaptor;
 import net.sourceforge.vrapper.vim.commands.BorderPolicy;
 import net.sourceforge.vrapper.vim.commands.CommandExecutionException;
-import net.sourceforge.vrapper.vim.commands.MotionCommand;
 
 /**
  * Move up or down lines with the cursor on the first non-whitespace character.
@@ -27,11 +26,9 @@ public class MoveUpDownNonWhitespace extends CountAwareMotion {
     public Position destination(EditorAdaptor editorAdaptor, int count) throws CommandExecutionException {
         int linesToMove = count + defaultAmount;
         if (linesToMove > 0) {
-            if (down) {
-                MotionCommand.doIt(editorAdaptor, MoveDown.INSTANCE.withCount(linesToMove - 1));
-            } else {
-                MotionCommand.doIt(editorAdaptor, MoveUp.INSTANCE.withCount(linesToMove - 1));
-            }
+            Motion upDownMotion = down ? MoveDown.INSTANCE : MoveUp.INSTANCE;
+            Position destination = upDownMotion.withCount(linesToMove - 1).destination(editorAdaptor);
+            editorAdaptor.setPosition(destination, StickyColumnPolicy.NEVER);
         }
         return LineStartMotion.NON_WHITESPACE.destination(editorAdaptor);
     }
