@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="net.sourceforge.vrapper.eclipse.psmp">
+      <mode-provider
+            id="net.sourceforge.vrapper.plugin.easymotion.provider.EasyMotionModeProvider"
+            name="vim-easymotion Mode Provider"
+            provider-class="net.sourceforge.vrapper.plugin.easymotion.provider.EasyMotionModeProvider">
+      </mode-provider>
+   </extension>
+   <extension
+         point="net.sourceforge.vrapper.eclipse.pssp">
+      <keymap-provider
+            id="net.sourceforge.vrapper.plugin.easymotion.provider.EMStateProvider"
+            name="vim-easymotion State Provider"
+            priority="20"
+            provider-class="net.sourceforge.vrapper.plugin.easymotion.provider.EMStateProvider">
+      </keymap-provider>
+   </extension>
+   <!--
+   <extension
+         point="net.sourceforge.vrapper.eclipse.lifecyclelistener">
+      <lifecycle-listener
+            id="net.sourceforge.vrapper.plugin.easymotion.eclipse.lifecycle-listener"
+            listener-class="net.sourceforge.vrapper.plugin.easymotion.provider.EMLifecycleListener">
+      </lifecycle-listener>
+   </extension>
+   -->
+</plugin>
