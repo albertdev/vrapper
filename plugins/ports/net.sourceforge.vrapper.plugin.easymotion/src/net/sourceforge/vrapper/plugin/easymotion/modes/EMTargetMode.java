@@ -17,6 +17,8 @@ import net.sourceforge.vrapper.plugin.easymotion.modes.EMModeHints.DirectionHint
 import net.sourceforge.vrapper.plugin.easymotion.modes.EMModeHints.MotionPairsHint;
 import net.sourceforge.vrapper.plugin.easymotion.modes.EMModeHints.PreviousModeHint;
 import net.sourceforge.vrapper.plugin.easymotion.utils.EMTargetTrieNode;
+import net.sourceforge.vrapper.plugin.easymotion.utils.EditorAdaptorStateManager;
+import net.sourceforge.vrapper.plugin.easymotion.utils.StateManager;
 import net.sourceforge.vrapper.utils.LabeledPosition;
 import net.sourceforge.vrapper.utils.Position;
 import net.sourceforge.vrapper.utils.Search;
@@ -43,6 +45,8 @@ public class EMTargetMode extends AbstractMode {
     public static final String NAME = EMTargetMode.class.getName();
     private static final String DISPLAY_NAME = "EM TARGET";
     private static final int MAX_TARGETS = 100;
+
+    public static final StateManager STATEMANAGER = new EditorAdaptorStateManager();
 
     protected static final KeyStroke KEY_RETURN = ConstructorWrappers.key(SpecialKey.RETURN);
     protected static final KeyStroke KEY_ESCAPE = ConstructorWrappers.key(SpecialKey.ESC);
