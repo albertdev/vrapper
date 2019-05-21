@@ -11,6 +11,7 @@ import net.sourceforge.vrapper.keymap.KeyStroke;
 import net.sourceforge.vrapper.keymap.SpecialKey;
 import net.sourceforge.vrapper.keymap.vim.ConstructorWrappers;
 import net.sourceforge.vrapper.log.VrapperLog;
+import net.sourceforge.vrapper.platform.CursorService;
 import net.sourceforge.vrapper.platform.HighlightingService;
 import net.sourceforge.vrapper.plugin.easymotion.commands.motions.EMJumpToTargetMotion;
 import net.sourceforge.vrapper.plugin.easymotion.modes.EMModeHints.DirectionHint;
@@ -188,7 +189,9 @@ public class EMTargetMode extends AbstractMode {
             jumpToPositionInLastMode(targets[0]);
         } else {
 
-            String targetKeys = "abc"; //"asdghklqwertyuiopzxcvbnmfj;";
+//            String targetKeys = "abc";
+//            String targetKeys = "asdghklqwertyuiopzxcvbnmfj;";
+            String targetKeys = "arsdheioqwfpgjluy;zxcvbkmtn'";
 
             targetsTree = buildTargetsTree(targetKeys, targets, "");
 
@@ -225,49 +228,53 @@ public class EMTargetMode extends AbstractMode {
     private void calculateForwardsTargets(Position currentPosition, TextRange forwardsRange,
             ArrayList<Position> forwardTargets, Motion forwardMotion)
             throws CommandExecutionException {
-        Position searchPos = forwardMotion.destination(editorAdaptor);
+        CursorService cursorService = editorAdaptor.getCursorService();
+        Position searchPos = forwardMotion.destination(editorAdaptor, currentPosition);
 
         Position previousPosition = currentPosition;
         int countResults = 0;
         while (forwardsRange.getEnd().compareTo(searchPos) >= 0
                 && countResults < MAX_TARGETS
                 && ! previousPosition.equals(searchPos)) {
-            previousPosition = searchPos;
-            editorAdaptor.setPosition(searchPos, StickyColumnPolicy.NEVER);
             // Matches inside a folded element return view offset -1, ignore those
             if (searchPos.getViewOffset() >= 0) {
                 forwardTargets.add(searchPos);
             }
-            searchPos = forwardMotion.destination(editorAdaptor);
+            previousPosition = searchPos;
+//            searchPos = cursorService.shiftPositionForModelOffset(searchPos.getModelOffset(), 1, false);
+//            editorAdaptor.setPosition(searchPos, StickyColumnPolicy.NEVER);
+            searchPos = forwardMotion.destination(editorAdaptor, searchPos);
         }
         if (countResults > MAX_TARGETS) {
             VrapperLog.error("Maximum forwards targets reached");
         }
-        editorAdaptor.setPosition(currentPosition, StickyColumnPolicy.NEVER);
+//        editorAdaptor.setPosition(currentPosition, StickyColumnPolicy.NEVER);
     }
 
     private void calculateBackwardsTargets(Position currentPosition, TextRange backwardsRange,
             ArrayList<Position> backwardTargets, Motion backwardMotion)
             throws CommandExecutionException {
-        Position searchPos = backwardMotion.destination(editorAdaptor);
+        CursorService cursorService = editorAdaptor.getCursorService();
+        Position searchPos = backwardMotion.destination(editorAdaptor, currentPosition);
 
         Position previousPosition = currentPosition;
         int countResults = 0;
         while (backwardsRange.getStart().compareTo(searchPos) <= 0
                 && countResults < MAX_TARGETS
                 && ! previousPosition.equals(searchPos)) {
-            previousPosition = searchPos;
-            editorAdaptor.setPosition(searchPos, StickyColumnPolicy.NEVER);
             // Matches inside a folded element return view offset -1, ignore those
             if (searchPos.getViewOffset() >= 0) {
                 backwardTargets.add(searchPos);
             }
-            searchPos = backwardMotion.destination(editorAdaptor);
+            previousPosition = searchPos;
+//            searchPos = cursorService.shiftPositionForModelOffset(searchPos.getModelOffset(), -1, true);
+//            editorAdaptor.setPosition(searchPos, StickyColumnPolicy.NEVER);
+            searchPos = backwardMotion.destination(editorAdaptor, searchPos);
         }
         if (countResults > MAX_TARGETS) {
             VrapperLog.error("Maximum forwards targets reached");
         }
-        editorAdaptor.setPosition(currentPosition, StickyColumnPolicy.NEVER);
+//        editorAdaptor.setPosition(currentPosition, StickyColumnPolicy.NEVER);
     }
 
     private Position[] mergeBiDirectionalTargets(List<Position> forwardTargetList, List<Position> backwardTargetList) {

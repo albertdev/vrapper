@@ -8,7 +8,15 @@ import net.sourceforge.vrapper.utils.TextRange;
 import net.sourceforge.vrapper.utils.ViewPortInformation;
 import net.sourceforge.vrapper.vim.EditorAdaptor;
 import net.sourceforge.vrapper.vim.commands.motions.Motion;
+import net.sourceforge.vrapper.vim.commands.motions.MoveBigWORDEndLeft;
+import net.sourceforge.vrapper.vim.commands.motions.MoveBigWORDEndRight;
+import net.sourceforge.vrapper.vim.commands.motions.MoveBigWORDLeft;
+import net.sourceforge.vrapper.vim.commands.motions.MoveBigWORDRight;
 import net.sourceforge.vrapper.vim.commands.motions.MoveUpDownNonWhitespace;
+import net.sourceforge.vrapper.vim.commands.motions.MoveWordEndLeft;
+import net.sourceforge.vrapper.vim.commands.motions.MoveWordEndRight;
+import net.sourceforge.vrapper.vim.commands.motions.MoveWordLeft;
+import net.sourceforge.vrapper.vim.commands.motions.MoveWordRight;
 import net.sourceforge.vrapper.vim.modes.ModeSwitchHint;
 
 public class EMModeHints {
@@ -66,6 +74,18 @@ public class EMModeHints {
     public static class MotionPairsHint implements ModeSwitchHint {
         public static MotionPairsHint LINE_UP_DOWN = new MotionPairsHint(
                 MoveUpDownNonWhitespace.MOVE_DOWN, MoveUpDownNonWhitespace.MOVE_UP);
+
+        public static MotionPairsHint WORD_MOVE = new MotionPairsHint(
+                MoveWordRight.INSTANCE, MoveWordLeft.INSTANCE);
+
+        public static MotionPairsHint WORDEND_MOVE = new MotionPairsHint(
+                MoveWordEndRight.INSTANCE, MoveWordEndLeft.INSTANCE);
+
+        public static MotionPairsHint BIG_WORD_MOVE = new MotionPairsHint(
+                MoveBigWORDRight.INSTANCE, MoveBigWORDLeft.INSTANCE);
+
+        public static MotionPairsHint BIG_WORDEND_MOVE = new MotionPairsHint(
+                MoveBigWORDEndRight.INSTANCE, MoveBigWORDEndLeft.INSTANCE);
 
         private Motion forwardMotion;
         private Motion backwardMotion;

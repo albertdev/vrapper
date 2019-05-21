@@ -46,11 +46,11 @@ public class EMPreviousOrNextMotion extends CountAwareMotion implements Navigati
     }
 
     @Override
-    public Position destination(EditorAdaptor editorAdaptor, int count) throws CommandExecutionException {
+    public Position destination(EditorAdaptor editorAdaptor, int count, Position fromPosition) throws CommandExecutionException {
         if (isBackwards) {
-            return backwardMotion.withCount(count).destination(editorAdaptor);
+            return backwardMotion.withCount(count).destination(editorAdaptor, fromPosition);
         }
-        return forwardMotion.withCount(count).destination(editorAdaptor);
+        return forwardMotion.withCount(count).destination(editorAdaptor, fromPosition);
     }
 
     @Override
